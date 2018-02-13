@@ -124,6 +124,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 13666882, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 3ef4d6f4b8455dc41ac345dd7a6f5b30,
+        type: 2}
+    - target: {fileID: 11403432, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
+      propertyPath: movementSettings.RunMultiplier
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403432, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
+      propertyPath: movementSettings.CrouchMultiplier
+      value: 0.35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
   m_IsPrefabParent: 0

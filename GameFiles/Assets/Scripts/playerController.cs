@@ -1,67 +1,59 @@
 using System;
 using UnityEngine;
 
-namespace UnityStandardAssets.Characters.FirstPerson
-{
+namespace UnityStandardAssets.Characters.FirstPerson{
 	[RequireComponent(typeof (Rigidbody))]
 	[RequireComponent(typeof (CapsuleCollider))]
-	public class playerController : MonoBehaviour
-	{
+	public class playerController : MonoBehaviour{
 		[Serializable]
-		public class MovementSettings
-		{
+		public class MovementSettings{
 			public float ForwardSpeed = 8.0f;   // Speed when walking forward
 			public float BackwardSpeed = 4.0f;  // Speed when walking backwards
 			public float StrafeSpeed = 4.0f;    // Speed when walking sideways
+			public float CrouchMultiplier = 0.5f; //Speed when crouching
 			public float RunMultiplier = 2.0f;   // Speed when sprinting
 			public KeyCode RunKey = KeyCode.LeftShift;
+			public KeyCode CrouchKey = KeyCode.LeftControl;
 			public float JumpForce = 30f;
 			public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
 			[HideInInspector] public float CurrentTargetSpeed = 8f;
 
-			#if !MOBILE_INPUT
 			private bool m_Running;
-			#endif
+			public bool m_Crouching;
 
-			public void UpdateDesiredTargetSpeed(Vector2 input)
-			{
+			public void UpdateDesiredTargetSpeed(Vector2 input){
 				if (input == Vector2.zero) return;
-				if (input.x > 0 || input.x < 0)
-				{
+				if (input.x > 0 || input.x < 0){
 					//strafe
 					CurrentTargetSpeed = StrafeSpeed;
 				}
-				if (input.y < 0)
-				{
+				if (input.y < 0){
 					//backwards
 					CurrentTargetSpeed = BackwardSpeed;
 				}
-				if (input.y > 0)
-				{
+				if (input.y > 0){
 					//forwards
 					//handled last as if strafing and moving forward at the same time forwards speed should take precedence
 					CurrentTargetSpeed = ForwardSpeed;
 				}
-				#if !MOBILE_INPUT
+				
 				if (Input.GetKey(RunKey))
 				{
 					CurrentTargetSpeed *= RunMultiplier;
 					m_Running = true;
-				}
-				else
-				{
+				}else{
 					m_Running = false;
 				}
-
-				#endif
+				
+				if (m_Crouching){
+					CurrentTargetSpeed *= CrouchMultiplier;
+				}
+				
 			}
 
-			#if !MOBILE_INPUT
-			public bool Running
-			{
+			public bool Running{
 				get { return m_Running; }
 			}
-			#endif
 		}
 
 
@@ -88,33 +80,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private float m_YRotation;
 		private Vector3 m_GroundContactNormal;
 		private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded, m_Crouching;
-		private KeyCode CrouchKey = KeyCode.LeftControl;
 
 
-		public Vector3 Velocity
-		{
+		public Vector3 Velocity{
 			get { return m_RigidBody.velocity; }
 		}
 
-		public bool Grounded
-		{
+		public bool Grounded{
 			get { return m_IsGrounded; }
 		}
 
-		public bool Jumping
-		{
+		public bool Jumping{
 			get { return m_Jumping; }
 		}
 
-		public bool Running
-		{
+		public bool Running{
 			get
 			{
-				#if !MOBILE_INPUT
 				return movementSettings.Running;
-				#else
-				return false;
-				#endif
 			}
 		}
 
@@ -135,6 +118,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			{
 				m_Jump = true;
 			}
+			
+			if(Input.GetButton("Crouch")){
+				movementSettings.m_Crouching = true;
+				m_Crouching = true;
+			}else{
+				if(NothingAbove()){
+					movementSettings.m_Crouching = false;
+					m_Crouching = false;
+				}
+			}
+			
 		}
 
 
@@ -186,14 +180,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			}
 			m_Jump = false;
 
-			if(Input.GetKey(CrouchKey)){
-				m_Crouching = true;
+			if(m_Crouching){
 				gameObject.GetComponent<CapsuleCollider> ().height = 1.0f;
 			}else{
-				if (!Physics.Raycast (transform.position + new Vector3 (0, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0.35f, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (-0.35f, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, 0.35f), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, -0.35f), Vector3.up, 0.7f)) {
-					m_Crouching = false;
-					gameObject.GetComponent<CapsuleCollider> ().height = 1.6f;
-				}
+				gameObject.GetComponent<CapsuleCollider> ().height = 1.6f;
 			}
 		}
 
@@ -271,6 +261,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			{
 				m_Jumping = false;
 			}
+		}
+		
+		public bool NothingAbove(){
+			return !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0.35f, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (-0.35f, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, 0.35f), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, -0.35f), Vector3.up, 0.7f);
 		}
 	}
 }
