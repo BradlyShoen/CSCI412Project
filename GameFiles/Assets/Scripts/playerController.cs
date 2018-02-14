@@ -13,13 +13,12 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			public float CrouchMultiplier = 0.5f; //Speed when crouching
 			public float RunMultiplier = 2.0f;   // Speed when sprinting
 			public KeyCode RunKey = KeyCode.LeftShift;
-			public KeyCode CrouchKey = KeyCode.LeftControl;
 			public float JumpForce = 30f;
 			public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
 			[HideInInspector] public float CurrentTargetSpeed = 8f;
 
 			private bool m_Running;
-			public bool m_Crouching;
+			[HideInInspector] public bool m_Crouching;
 
 			public void UpdateDesiredTargetSpeed(Vector2 input){
 				if (input == Vector2.zero) return;
@@ -114,7 +113,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		{
 			RotateView();
 
-			if (Input.GetButtonDown("Jump") && !m_Jump)
+			if (Input.GetButtonDown("Jump") && !m_Jump && NothingAbove())
 			{
 				m_Jump = true;
 			}
