@@ -17,32 +17,32 @@ public class playerLogic : MonoBehaviour {
 		playerObject = GameObject.FindWithTag("Player");
 		playerMover = playerObject.GetComponent<playerController>();
 		mainCanvas = GameObject.Find("MainCanvas");
-		
+
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	void Update () {
-		if(Input.GetKeyDown("escape")){
+		if(Input.GetKeyDown("`")){
 			PauseUnpause();
 		}
 		
 		if(currentlyPaused){
 			pausePanel.SetActive(true);
-			
-			playerMover.enabled = false;
-			Time.timeScale = 0.0f;
-			
+
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.Confined;
+
+			playerMover.enabled = false;
+			Time.timeScale = 0.0f;
 		}else{
 			pausePanel.SetActive(false);
-			
-			playerMover.enabled = true;
-			Time.timeScale = 1.0f;
-			
+
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
+
+			playerMover.enabled = true;
+			Time.timeScale = 1.0f;
 			
 		}
 	}
@@ -63,4 +63,5 @@ public class playerLogic : MonoBehaviour {
 			currentlyPaused = true;
 		}
 	}
+
 }

@@ -495,7 +495,7 @@ MonoBehaviour:
 
     Left Control (Hold) - Crouch
 
-    Escape - Pause/Unpause'
+    "~" - Pause/Unpause'
 --- !u!114 &114455906379366230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -701,7 +701,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Esc for help
+  m_Text: '"~" for help'
 --- !u!114 &114810726609025938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -853,9 +853,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7107528, y: 0.7107531, z: 0.7107531}
   m_Children:
-  - {fileID: 224403009499591684}
-  - {fileID: 224636302830586316}
   - {fileID: 224453511427011134}
+  - {fileID: 224636302830586316}
+  - {fileID: 224403009499591684}
   m_Father: {fileID: 224506364505405582}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -894,7 +894,7 @@ RectTransform:
   m_Children:
   - {fileID: 224334097782911820}
   m_Father: {fileID: 224261833477605902}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -909,15 +909,15 @@ RectTransform:
   m_GameObject: {fileID: 1403617943949112}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4069589, y: 1.4069585, z: 1.4069585}
+  m_LocalScale: {x: 1.1895838, y: 1.1895833, z: 1.1895833}
   m_Children: []
   m_Father: {fileID: 224261833477605902}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 28, y: -28}
-  m_SizeDelta: {x: 650, y: 249.2}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 98.647, y: -55.042}
+  m_SizeDelta: {x: -310, y: -213.8}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224506364505405582
 RectTransform:
