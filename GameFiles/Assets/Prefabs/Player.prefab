@@ -156,7 +156,7 @@ MonoBehaviour:
     BackwardSpeed: 3.5
     StrafeSpeed: 3.5
     CrouchMultiplier: 0.35
-    RunMultiplier: 1.5
+    RunMultiplier: 2
     RunKey: 304
     JumpForce: 45
     SlopeCurveModifier:
@@ -184,6 +184,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     CurrentTargetSpeed: 8
+    playerStats: {fileID: 114600367650542616}
     m_Crouching: 0
   mouseLook:
     XSensitivity: 2
@@ -636,6 +637,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 1118145749515940}
   pausePanel: {fileID: 1657554804787278}
+  playerHealth: 100
+  playerStamina: 100
+  staminaIncreaseRate: 50
+  runningDecreaseRate: 25
 --- !u!114 &114656657761195396
 MonoBehaviour:
   m_ObjectHideFlags: 1
