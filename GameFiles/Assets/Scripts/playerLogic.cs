@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//This script is used to control the player stats like health, stamina, battery power, etc. It is also used to contol the UI elements of the game.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +22,16 @@ public class playerLogic : MonoBehaviour {
 	
 	private const float PLAYERMAXHEALTH = 100f;
 	private const float PLAYERMAXSTAMINA = 100f;
+	
+	Vector2 healthBarPos = new Vector2(20,Screen.height - 40);
+	Vector2 healthBarSize = new Vector2(250,20);
+	public Texture2D healthBarEmpty;
+	public Texture2D healthBarFull;
+	
+	Vector2 staminaBarPos = new Vector2(20,Screen.height - 20);
+	Vector2 staminaBarSize = new Vector2(50,10);
+	public Texture2D staminaBarEmpty;
+	public Texture2D staminaBarFull;
 	
 
 	void Start () {
@@ -97,5 +109,31 @@ public class playerLogic : MonoBehaviour {
 	public IEnumerator increaseStamina(){
 		playerStamina +=  staminaIncreaseRate * Time.deltaTime;
 		yield return 0;
+	}
+	
+	public void OnGUI(){
+		//Healthbar
+		GUI.BeginGroup (new Rect (healthBarPos.x, healthBarPos.y, healthBarSize.x, healthBarSize.y));
+			GUI.Box (new Rect (0,0, healthBarSize.x, healthBarSize.y),healthBarEmpty);
+			GUI.DrawTexture(new Rect (0,0, healthBarSize.x, healthBarSize.y), healthBarEmpty, ScaleMode.StretchToFill, true, 10.0F);
+
+			// draw the filled-in part:
+			GUI.BeginGroup (new Rect (0, 0, healthBarSize.x * (playerHealth/PLAYERMAXHEALTH), healthBarSize.y));
+			GUI.DrawTexture(new Rect (0,0, healthBarSize.x, healthBarSize.y), healthBarFull, ScaleMode.StretchToFill, true, 10.0F);
+			GUI.EndGroup ();
+
+		GUI.EndGroup ();
+		
+		//Staminabar
+		GUI.BeginGroup (new Rect (staminaBarPos.x, staminaBarPos.y, staminaBarSize.x, staminaBarSize.y));
+			GUI.Box (new Rect (0,0, staminaBarSize.x, staminaBarSize.y),healthBarEmpty);
+			GUI.DrawTexture(new Rect (0,0, staminaBarSize.x, staminaBarSize.y), staminaBarEmpty, ScaleMode.StretchToFill, true, 10.0F);
+
+			// draw the filled-in part:
+			GUI.BeginGroup (new Rect (0, 0, staminaBarSize.x * (playerStamina/PLAYERMAXSTAMINA), staminaBarSize.y));
+			GUI.DrawTexture(new Rect (0,0, staminaBarSize.x, staminaBarSize.y), staminaBarFull, ScaleMode.StretchToFill, true, 10.0F);
+			GUI.EndGroup ();
+
+		GUI.EndGroup ();
 	}
 }

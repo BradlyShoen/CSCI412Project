@@ -1,3 +1,5 @@
+//This script is originally created by Unity but heavly modified to fit our player's controls
+
 using System;
 using UnityEngine;
 
@@ -7,20 +9,22 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 	public class playerController : MonoBehaviour{
 		[Serializable]
 		public class MovementSettings{
-			public float ForwardSpeed = 8.0f;   // Speed when walking forward
-			public float BackwardSpeed = 4.0f;  // Speed when walking backwards
-			public float StrafeSpeed = 4.0f;    // Speed when walking sideways
-			public float CrouchMultiplier = 0.5f; //Speed when crouching
+			public float ForwardSpeed = 3.5f;   // Speed when walking forward
+			public float BackwardSpeed = 3.5f;  // Speed when walking backwards
+			public float StrafeSpeed = 3.5f;    // Speed when walking sideways
+			public float CrouchMultiplier = 0.35f; //Speed when crouching
 			public float RunMultiplier = 2.0f;   // Speed when sprinting
 			public KeyCode RunKey = KeyCode.LeftShift;
-			public float JumpForce = 30f;
+			public float JumpForce = 45f;
+			
 			public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
 			[HideInInspector] public float CurrentTargetSpeed = 8f;
 			public playerLogic playerStats;
 
 			private bool m_Running;
 			[HideInInspector] public bool m_Crouching;
-
+			
+			//This function updates the speed of the player based on whether or not hes crouching, running, strafing, etc
 			public void UpdateDesiredTargetSpeed(Vector2 input){
 				if (input == Vector2.zero) return;
 				if (input.x > 0 || input.x < 0){
@@ -50,7 +54,8 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 				}
 				
 			}
-
+			
+			//This function returns the protected variable m_Running
 			public bool Running{
 				get { return m_Running; }
 			}
@@ -60,12 +65,12 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		[Serializable]
 		public class AdvancedSettings
 		{
-			public float groundCheckDistance = 0.01f; // distance for checking if the controller is grounded ( 0.01f seems to work best for this )
-			public float stickToGroundHelperDistance = 0.5f; // stops the character
+			public float groundCheckDistance = 0.1f; // distance for checking if the controller is grounded ( 0.01f seems to work best for this )
+			public float stickToGroundHelperDistance = 0.6f; // stops the character
 			public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
-			public bool airControl; // can the user control the direction that is being moved in the air
+			public bool airControl = true; // can the user control the direction that is being moved in the air
 			[Tooltip("set it to 0.1 or more if you get stuck in wall")]
-			public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
+			public float shellOffset = 0.1f; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
 		}
 
 
@@ -82,19 +87,22 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded, m_Crouching;
 		private playerLogic playerStats;
 
-
+		//Returns the velocity Vector3 of our player
 		public Vector3 Velocity{
 			get { return m_RigidBody.velocity; }
 		}
-
+		
+		//Returns whether or not our player is grounded
 		public bool Grounded{
 			get { return m_IsGrounded; }
 		}
 
+		//Returns whether or not our player is jumping
 		public bool Jumping{
 			get { return m_Jumping; }
 		}
-
+		
+		//Returns whether or not our player is running
 		public bool Running{
 			get
 			{
@@ -102,7 +110,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 		}
 
-
+		//Initializes our variables
 		private void Start()
 		{
 			m_RigidBody = GetComponent<Rigidbody>();
@@ -111,7 +119,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			playerStats = GetComponent<playerLogic>();
 		}
 
-
+		//Gets mouse input, checks if we are jumping, and also checks if we are crouching
 		private void Update()
 		{
 			RotateView();
@@ -181,13 +189,17 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 				}
 			}
 			m_Jump = false;
-
+			
+			//MODIFIED PORTION STARTS HERE
+			
+			//This changes the height of our character based on whether or not we are crouching
 			if(m_Crouching){
 				gameObject.GetComponent<CapsuleCollider> ().height = 1.0f;
 			}else{
 				gameObject.GetComponent<CapsuleCollider> ().height = 1.6f;
 			}
 			
+			//This decreases or increases our stamina based on whether or not we are standing still or running
 			if(Running){
 				StartCoroutine(playerStats.decreaseStamina());
 			}else if(input == new Vector2(0f,0f)){
@@ -271,8 +283,13 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 		}
 		
+		//This checks if there is anything above our character and prevents him from jumping/uncrouching to avoid glitching through floors/walls
 		public bool NothingAbove(){
-			return !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0.35f, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (-0.35f, 0.5f, 0), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, 0.35f), Vector3.up, 0.7f) && !Physics.Raycast (transform.position + new Vector3 (0, 0.5f, -0.35f), Vector3.up, 0.7f);
+			float xMargin = 0.4f;
+			float yMargin = 0.5f;
+			float distanceToCheck = 0.7f;
+			
+			return !Physics.Raycast (transform.position + new Vector3 (0, yMargin, 0), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (xMargin, yMargin, 0), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (-xMargin, yMargin, 0), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (0, yMargin, xMargin), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (0, yMargin, -xMargin), Vector3.up, distanceToCheck);
 		}
 	}
 }

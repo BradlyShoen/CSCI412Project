@@ -641,6 +641,10 @@ MonoBehaviour:
   playerStamina: 100
   staminaIncreaseRate: 50
   runningDecreaseRate: 25
+  healthBarEmpty: {fileID: 2800000, guid: 67c29d2a9f772324dbcd1f953fdac674, type: 3}
+  healthBarFull: {fileID: 2800000, guid: b1453725bfcf6a845b7d73ad9e558624, type: 3}
+  staminaBarEmpty: {fileID: 2800000, guid: 210ae2d5cf79ac7448878e88c569bb1a, type: 3}
+  staminaBarFull: {fileID: 2800000, guid: 7784e2d286284344e95ed6a73e91a52a, type: 3}
 --- !u!114 &114656657761195396
 MonoBehaviour:
   m_ObjectHideFlags: 1

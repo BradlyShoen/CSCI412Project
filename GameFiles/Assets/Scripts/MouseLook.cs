@@ -1,3 +1,5 @@
+//This script was created by Unity and allows the user to control the camera based on mouse input
+
 using System;
 using UnityEngine;
 
@@ -9,10 +11,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float XSensitivity = 2f;
         public float YSensitivity = 2f;
         public bool clampVerticalRotation = true;
-        public float MinimumX = -90F;
+        public float MinimumX = -45F;
         public float MaximumX = 90F;
         public bool smooth;
-        public float smoothTime = 5f;
+        public float smoothTime = 12f;
         public bool lockCursor = true;
 
 
