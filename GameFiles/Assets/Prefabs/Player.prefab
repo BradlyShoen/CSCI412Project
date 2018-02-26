@@ -169,7 +169,7 @@ MonoBehaviour:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0
+        time: 50.17903
         value: 1
         inSlope: 0
         outSlope: 0
@@ -182,16 +182,17 @@ MonoBehaviour:
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     CurrentTargetSpeed: 8
     playerStats: {fileID: 114600367650542616}
     m_Crouching: 0
+    m_IsGrounded: 0
   mouseLook:
     XSensitivity: 2
     YSensitivity: 2
     clampVerticalRotation: 1
     MinimumX: -45
-    MaximumX: 90
+    MaximumX: 89
     smooth: 0
     smoothTime: 12
     lockCursor: 1
@@ -201,6 +202,7 @@ MonoBehaviour:
     slowDownRate: 20
     airControl: 1
     shellOffset: 0.1
+  slopeLimit: 50
 --- !u!124 &12491700
 Behaviour:
   m_ObjectHideFlags: 1

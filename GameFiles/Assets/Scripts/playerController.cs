@@ -1,6 +1,7 @@
 //This script is originally created by Unity but heavly modified to fit our player's controls
 
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace UnityStandardAssets.Characters.FirstPerson{
@@ -22,7 +23,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			public playerLogic playerStats;
 
 			private bool m_Running;
-			[HideInInspector] public bool m_Crouching;
+			[HideInInspector] public bool m_Crouching, m_IsGrounded;
 			
 			//This function updates the speed of the player based on whether or not hes crouching, running, strafing, etc
 			public void UpdateDesiredTargetSpeed(Vector2 input){
@@ -41,7 +42,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 					CurrentTargetSpeed = ForwardSpeed;
 				}
 				
-				if (Input.GetKey(RunKey) && playerStats.playerStamina > 0.0f)
+				if (Input.GetKey(RunKey) && playerStats.playerStamina > 0.0f && m_IsGrounded)
 				{
 					CurrentTargetSpeed *= RunMultiplier;
 					m_Running = true;
@@ -78,14 +79,19 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		public MovementSettings movementSettings = new MovementSettings();
 		public MouseLook mouseLook = new MouseLook();
 		public AdvancedSettings advancedSettings = new AdvancedSettings();
+		
+		public float slopeLimit = 50f;
 
 
 		private Rigidbody m_RigidBody;
 		private CapsuleCollider m_Capsule;
 		private float m_YRotation;
 		private Vector3 m_GroundContactNormal;
-		private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded, m_Crouching;
+		private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_Crouching;
+		private bool m_IsGrounded;
 		private playerLogic playerStats;
+		private bool m_PreviouslyCrouched, m_checkCrouch;
+		
 
 		//Returns the velocity Vector3 of our player
 		public Vector3 Velocity{
@@ -105,9 +111,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		//Returns whether or not our player is running
 		public bool Running{
 			get
-			{
-				return movementSettings.Running;
-			}
+			{ return movementSettings.Running; }
 		}
 
 		//Initializes our variables
@@ -130,12 +134,18 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 			
 			if(Input.GetButton("Crouch")){
+				m_PreviouslyCrouched = true;
 				movementSettings.m_Crouching = true;
 				m_Crouching = true;
+				m_checkCrouch = true;
 			}else{
 				if(NothingAbove()){
 					movementSettings.m_Crouching = false;
 					m_Crouching = false;
+					if(m_checkCrouch){
+						StartCoroutine(setPreviouslyCrouched());
+						m_checkCrouch = false;
+					}
 				}
 			}
 			
@@ -200,10 +210,19 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 			
 			//This decreases or increases our stamina based on whether or not we are standing still or running
-			if(Running){
+			if(Running && input != new Vector2(0f,0f)){
 				StartCoroutine(playerStats.decreaseStamina());
 			}else if(input == new Vector2(0f,0f)){
 				StartCoroutine(playerStats.increaseStamina());
+			}
+			
+			RaycastHit hit;
+			Physics.Raycast(transform.position, -Vector3.up, out hit);
+			
+			if(input == new Vector2(0f,0f) && m_IsGrounded && !m_PreviouslyCrouched && GetComponent<Rigidbody>().velocity.sqrMagnitude < 1.5f && !Input.GetButton("Jump") && Vector3.Angle(hit.normal, Vector3.up) < slopeLimit){
+				GetComponent<Rigidbody>().isKinematic = true;
+			}else{
+				GetComponent<Rigidbody>().isKinematic = false;
 			}
 		}
 
@@ -270,11 +289,13 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 				((m_Capsule.height/2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, ~0, QueryTriggerInteraction.Ignore))
 			{
 				m_IsGrounded = true;
+				movementSettings.m_IsGrounded = true;
 				m_GroundContactNormal = hitInfo.normal;
 			}
 			else
 			{
 				m_IsGrounded = false;
+				movementSettings.m_IsGrounded = false;
 				m_GroundContactNormal = Vector3.up;
 			}
 			if (!m_PreviouslyGrounded && m_IsGrounded && m_Jumping)
@@ -290,6 +311,11 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			float distanceToCheck = 0.7f;
 			
 			return !Physics.Raycast (transform.position + new Vector3 (0, yMargin, 0), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (xMargin, yMargin, 0), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (-xMargin, yMargin, 0), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (0, yMargin, xMargin), Vector3.up, distanceToCheck) && !Physics.Raycast (transform.position + new Vector3 (0, yMargin, -xMargin), Vector3.up, distanceToCheck);
+		}
+		
+		public IEnumerator setPreviouslyCrouched(){
+			yield return new WaitForSeconds(0.15f);
+			m_PreviouslyCrouched = false;
 		}
 	}
 }
