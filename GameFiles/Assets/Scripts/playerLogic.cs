@@ -10,6 +10,7 @@ public class playerLogic : MonoBehaviour {
 	
 	public GameObject mainCanvas;
 	public GameObject pausePanel;
+	public GameObject deathPanel;
 	
 	private GameObject playerObject;
 	private playerController playerMover;
@@ -48,7 +49,7 @@ public class playerLogic : MonoBehaviour {
 			PauseUnpause();
 		}
 		
-		if(currentlyPaused){
+		if(currentlyPaused && playerHealth > 0.0f){
 			pausePanel.SetActive(true);
 
 			Cursor.visible = true;
@@ -56,7 +57,7 @@ public class playerLogic : MonoBehaviour {
 
 			playerMover.enabled = false;
 			Time.timeScale = 0.0f;
-		}else{
+		}else if(!currentlyPaused && playerHealth > 0.0f){
 			pausePanel.SetActive(false);
 
 			Cursor.visible = false;
@@ -77,6 +78,10 @@ public class playerLogic : MonoBehaviour {
 			playerStamina = PLAYERMAXSTAMINA;
 		}else if(playerStamina < 0){
 			playerStamina = 0;
+		}
+		
+		if(playerHealth <= 0f){
+			playerDeath();
 		}
 	}
 	
@@ -109,6 +114,14 @@ public class playerLogic : MonoBehaviour {
 	public IEnumerator increaseStamina(){
 		playerStamina +=  staminaIncreaseRate * Time.deltaTime;
 		yield return 0;
+	}
+	
+	public void playerDeath(){
+		gameObject.GetComponent<playerController>().enabled = false;
+		deathPanel.SetActive(true);
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.Confined;
+		Time.timeScale = 0.0f;
 	}
 	
 	public void OnGUI(){
