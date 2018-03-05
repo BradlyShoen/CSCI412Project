@@ -81,6 +81,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		public AdvancedSettings advancedSettings = new AdvancedSettings();
 		
 		public float slopeLimit = 50f;
+		public GameObject playerLight;
 
 
 		private Rigidbody m_RigidBody;
@@ -91,6 +92,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		private bool m_IsGrounded;
 		private playerLogic playerStats;
 		private bool m_PreviouslyCrouched, m_checkCrouch;
+		private bool m_flashlightOn = true;
 		
 
 		//Returns the velocity Vector3 of our player
@@ -146,6 +148,14 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 						StartCoroutine(setPreviouslyCrouched());
 						m_checkCrouch = false;
 					}
+				}
+			}
+			
+			if (Input.GetButtonDown("Flashlight")){
+				if(m_flashlightOn){
+					m_flashlightOn = false;
+				}else{
+					m_flashlightOn = true;
 				}
 			}
 			
@@ -223,6 +233,12 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 				GetComponent<Rigidbody>().isKinematic = true;
 			}else{
 				GetComponent<Rigidbody>().isKinematic = false;
+			}
+			
+			if(m_flashlightOn){
+				playerLight.SetActive(true);
+			}else{
+				playerLight.SetActive(false);
 			}
 		}
 
