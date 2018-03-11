@@ -59,7 +59,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.542, z: 2.077}
+  m_LocalPosition: {x: -0.34555054, y: 8.48, z: 1.5835266}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418972}
@@ -510,9 +510,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
-  m_Range: 25
-  m_SpotAngle: 88
+  m_Intensity: 1
+  m_Range: 50
+  m_SpotAngle: 60
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -529,7 +529,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
   m_ColorTemperature: 6570
@@ -1042,7 +1042,7 @@ MonoBehaviour:
   playerHealth: 100
   playerStamina: 100
   staminaIncreaseRate: 50
-  runningDecreaseRate: 25
+  runningDecreaseRate: 5
   healthBarEmpty: {fileID: 2800000, guid: 67c29d2a9f772324dbcd1f953fdac674, type: 3}
   healthBarFull: {fileID: 2800000, guid: b1453725bfcf6a845b7d73ad9e558624, type: 3}
   staminaBarEmpty: {fileID: 2800000, guid: 210ae2d5cf79ac7448878e88c569bb1a, type: 3}
