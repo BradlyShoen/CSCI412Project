@@ -194,6 +194,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8d5b9615839958488f02cfa4dc5b3b0, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &132127590 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 484582, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
+  m_PrefabInternal: {fileID: 2130738800}
 --- !u!108 &599517112 stripped
 Light:
   m_PrefabParentObject: {fileID: 108865677558944098, guid: d8d5b9615839958488f02cfa4dc5b3b0,
@@ -212,6 +216,8 @@ GameObject:
   - component: {fileID: 769550144}
   - component: {fileID: 769550148}
   - component: {fileID: 769550149}
+  - component: {fileID: 769550151}
+  - component: {fileID: 769550150}
   m_Layer: 0
   m_Name: Whistler
   m_TagString: MainCamera
@@ -296,6 +302,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3d9200451492c4e993d1686e831587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 132127590}
+  whistler: {fileID: 769550147}
+  agent: {fileID: 769550149}
+  triggerDamage: {fileID: 769550150}
+  whistlerCollider: {fileID: 769550145}
+  fov: 90
+  aggro_speed: 2.5
+  wander_speed: 1.5
+  search_speed: 1.5
+  rotate_speed: 0.001
+  damage_range: 1.3
 --- !u!195 &769550149
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -305,7 +322,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -317,6 +334,47 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &769550150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 769550143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47cc56ddbeb9074c90318dee7719432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageToTake: 5
+  rate: 1
+--- !u!65 &769550151
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 769550143}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1315655247 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 177462, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
+  m_PrefabInternal: {fileID: 2130738800}
+--- !u!65 &1315655253
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1315655247}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2097709228
 GameObject:
   m_ObjectHideFlags: 0
