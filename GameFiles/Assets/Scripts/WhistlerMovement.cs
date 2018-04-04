@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor.Animations;
 
 public class WhistlerMovement : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class WhistlerMovement : MonoBehaviour
     public float search_speed = 2F;
     public float rotate_speed = .001F;
     public float damage_range = 4F;
+	public float attackAnimThreshold = 1f;
     // Use this for initialization
     void Start()
     {
@@ -49,6 +51,12 @@ public class WhistlerMovement : MonoBehaviour
             wander();
         }
         triggerDamage.OnTriggerStay(whistlerCollider);
+		if(Vector3.Distance(whistler.position, player.position) <= (damage_range + attackAnimThreshold)){
+			gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+		}else{
+			gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+		}
+		
         if(Vector3.Distance(whistler.position, player.position) <= damage_range)
         {
             print("attacking player");
