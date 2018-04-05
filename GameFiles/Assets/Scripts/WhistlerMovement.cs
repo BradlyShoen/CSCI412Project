@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEditor.Animations;
 
 public class WhistlerMovement : MonoBehaviour
 {
