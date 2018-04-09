@@ -81,6 +81,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		public AdvancedSettings advancedSettings = new AdvancedSettings();
 		
 		public float slopeLimit = 50f;
+		public float JumpStaminaCost = 25f;
 		public GameObject playerLight;
 
 
@@ -130,9 +131,10 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		{
 			RotateView();
 
-			if (Input.GetButtonDown("Jump") && !m_Jump && NothingAbove())
+			if (Input.GetButtonDown("Jump") && !m_Jump && NothingAbove() && playerStats.playerStamina >= JumpStaminaCost)
 			{
 				m_Jump = true;
+				playerStats.playerStamina -= JumpStaminaCost;
 			}
 			
 			if(Input.GetButton("Crouch")){
