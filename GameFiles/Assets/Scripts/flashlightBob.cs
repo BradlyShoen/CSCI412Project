@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class flashlightBob: MonoBehaviour {
+
 	private float timer = 0.0f;
 	public float bobbingSpeed = 0.18f;
 	private float runningBobSpeed;
 	private float walkingBobSpeed;
 	public float bobbingAmount = 0.02f;
 	public float midpoint = 0.0f;
+    public float intensity = 0;
+    private playerLogic playerLogic;
 
 	void Start(){
-		walkingBobSpeed = bobbingSpeed;
+
+        playerLogic = GameObject.FindWithTag("Player").GetComponent<playerLogic>();
+        walkingBobSpeed = bobbingSpeed;
 		runningBobSpeed = 1.5f * bobbingSpeed;
 	}
 
@@ -19,7 +24,6 @@ public class flashlightBob: MonoBehaviour {
 		float waveslice = 0.0f;
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
-
 		Vector3 cSharpConversion = transform.localPosition; 
 
 		if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0) {

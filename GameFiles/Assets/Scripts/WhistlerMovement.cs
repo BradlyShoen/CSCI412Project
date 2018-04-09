@@ -42,7 +42,7 @@ public class WhistlerMovement : MonoBehaviour
         agent.CalculatePath(player.position, path);
         if (LineOfSight(whistler, player))
         {
-            print("found player");
+            //print("found player");
             aggro();
         }
         else
@@ -58,7 +58,7 @@ public class WhistlerMovement : MonoBehaviour
 		
         if(Vector3.Distance(whistler.position, player.position) <= damage_range)
         {
-            print("attacking player");
+           // print("attacking player");
             StartCoroutine(triggerDamage.applyPlayerDamage(player.gameObject));
         }
     }

@@ -11,8 +11,10 @@ public class playerLogic : MonoBehaviour {
 	public GameObject mainCanvas;
 	public GameObject pausePanel;
 	public GameObject deathPanel;
-	
-	private GameObject playerObject;
+
+    public Light light;
+
+    private GameObject playerObject;
 	private playerController playerMover;
 	private bool currentlyPaused = false;
 	
@@ -20,8 +22,18 @@ public class playerLogic : MonoBehaviour {
 	public float playerStamina = 100f;
 	public float staminaIncreaseRate = 50.0f;
 	public float runningDecreaseRate = 10.0f;
-	
-	private const float PLAYERMAXHEALTH = 100f;
+
+    public float numBatteries = 1;
+    public float defaultBatteryLife = 100;
+    public float currentBatteryLife = 20;
+    public float batteryDecreaseRate = 5.0f;
+    public float reloadTime = 3.0f;
+
+    public float brightLightIntensity = 1;
+    public float dimLightIntensity = .2f;
+
+    private const float PLAYERMAXHEALTH = 100f;
+
 	private const float PLAYERMAXSTAMINA = 100f;
 	
 	Vector2 healthBarPos = new Vector2(20,Screen.height - 40);
@@ -33,42 +45,50 @@ public class playerLogic : MonoBehaviour {
 	Vector2 staminaBarSize = new Vector2(50,10);
 	public Texture2D staminaBarEmpty;
 	public Texture2D staminaBarFull;
-	
 
-	void Start () {
+
+    void Start () {
 		playerObject = GameObject.FindWithTag("Player");
 		playerMover = playerObject.GetComponent<playerController>();
 		mainCanvas = GameObject.Find("MainCanvas");
-
-		Cursor.visible = false;
+        light = GameObject.FindWithTag("Flashlight").GetComponent<Light>();
+        Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
-	
-	void Update () {
-		if(Input.GetKeyDown("`")){
-			PauseUnpause();
-		}
-		
-		if(currentlyPaused && playerHealth > 0.0f){
-			pausePanel.SetActive(true);
 
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.Confined;
+    void Update() {
+        if (Input.GetKeyDown("`")) {
+            PauseUnpause();
+        }
 
-			playerMover.enabled = false;
-			Time.timeScale = 0.0f;
-		}else if(!currentlyPaused && playerHealth > 0.0f){
-			pausePanel.SetActive(false);
+        if (currentlyPaused && playerHealth > 0.0f) {
+            pausePanel.SetActive(true);
 
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
 
-			playerMover.enabled = true;
-			Time.timeScale = 1.0f;
-			
-		}
-		
-		if(playerHealth > PLAYERMAXHEALTH){
+            playerMover.enabled = false;
+            Time.timeScale = 0.0f;
+        } else if (!currentlyPaused && playerHealth > 0.0f) {
+            pausePanel.SetActive(false);
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            playerMover.enabled = true;
+            Time.timeScale = 1.0f;
+
+        }
+
+        if (currentBatteryLife <= 0 && light.enabled)
+        {
+            numBatteries -= 1;
+            if (numBatteries <= 0)
+            {
+                light.enabled = false;
+            }
+        }
+        if (playerHealth > PLAYERMAXHEALTH){
 			playerHealth = PLAYERMAXHEALTH;
 		}else if(playerHealth < 0){
 			playerHealth = 0;
@@ -84,8 +104,37 @@ public class playerLogic : MonoBehaviour {
 			playerDeath();
 		}
 	}
-	
-	public void RestartCurrentScene(){
+    
+    public void reloadBattery()
+    {
+        light.enabled = false;
+        if(numBatteries == 0)
+        { 
+            return;
+        }
+        numBatteries -= 1;
+        currentBatteryLife = defaultBatteryLife;
+        StartCoroutine(insertBattery());
+    }
+
+    public IEnumerator insertBattery()
+    {
+        yield return new WaitForSeconds(reloadTime);
+        light.intensity = brightLightIntensity;
+        light.enabled = true;
+    }
+    public IEnumerator decreaseBattery()
+    {
+        currentBatteryLife -= batteryDecreaseRate * Time.deltaTime;
+        if(currentBatteryLife * 10 < defaultBatteryLife)
+        {
+            light.intensity = dimLightIntensity;
+        }
+		yield return 0;
+        print(currentBatteryLife);
+    }
+
+    public void RestartCurrentScene(){
 		Scene loadedLevel = SceneManager.GetActiveScene ();
 		SceneManager.LoadScene (loadedLevel.buildIndex);
 	}
@@ -123,8 +172,8 @@ public class playerLogic : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Confined;
 		Time.timeScale = 0.0f;
 	}
-	
-	public void OnGUI(){
+
+    public void OnGUI(){
 		//Healthbar
 		GUI.BeginGroup (new Rect (healthBarPos.x, healthBarPos.y, healthBarSize.x, healthBarSize.y));
 			GUI.Box (new Rect (0,0, healthBarSize.x, healthBarSize.y),healthBarEmpty);

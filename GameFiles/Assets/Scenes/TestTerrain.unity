@@ -441,6 +441,34 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 224506364505405582, guid: 50f7688f416616145a3b3fcff3cf5a31,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256849236110932, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820722902484782, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
+      propertyPath: m_TagString
+      value: Flashlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 108245417483465160, guid: 50f7688f416616145a3b3fcff3cf5a31,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 108245417483465160, guid: 50f7688f416616145a3b3fcff3cf5a31,
+        type: 2}
+      propertyPath: m_Range
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114600367650542616, guid: 50f7688f416616145a3b3fcff3cf5a31,
+        type: 2}
+      propertyPath: currentBatteryLife
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
   m_IsPrefabParent: 0

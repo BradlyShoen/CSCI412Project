@@ -17,7 +17,6 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			public float RunMultiplier = 2.0f;   // Speed when sprinting
 			public KeyCode RunKey = KeyCode.LeftShift;
 			public float JumpForce = 45f;
-			
 			public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
 			[HideInInspector] public float CurrentTargetSpeed = 8f;
 			public playerLogic playerStats;
@@ -94,10 +93,10 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		private playerLogic playerStats;
 		private bool m_PreviouslyCrouched, m_checkCrouch;
 		private bool m_flashlightOn = true;
-		
 
-		//Returns the velocity Vector3 of our player
-		public Vector3 Velocity{
+
+        //Returns the velocity Vector3 of our player
+        public Vector3 Velocity{
 			get { return m_RigidBody.velocity; }
 		}
 		
@@ -155,13 +154,18 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			
 			if (Input.GetButtonDown("Flashlight")){
 				if(m_flashlightOn){
-					m_flashlightOn = false;
+                    m_flashlightOn = false;
 				}else{
 					m_flashlightOn = true;
 				}
 			}
-			
+
+            if (Input.GetButtonDown("Reload"))
+            {
+                playerStats.reloadBattery();
+            }
 		}
+
 
 
 		private void FixedUpdate()
@@ -238,9 +242,10 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 			
 			if(m_flashlightOn){
-				playerLight.SetActive(true);
+                StartCoroutine(playerStats.decreaseBattery());
+                playerLight.SetActive(true);
 			}else{
-				playerLight.SetActive(false);
+                playerLight.SetActive(false);
 			}
 		}
 
