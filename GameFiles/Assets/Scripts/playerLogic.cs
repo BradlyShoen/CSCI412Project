@@ -28,9 +28,10 @@ public class playerLogic : MonoBehaviour {
     public float currentBatteryLife = 20;
     public float batteryDecreaseRate = 5.0f;
     public float reloadTime = 3.0f;
+    public bool flashLightOn = true;
 
     public float brightLightIntensity = 1;
-    public float dimLightIntensity = .2f;
+    public float dimLightIntensity = .05f;
 
     private const float PLAYERMAXHEALTH = 100f;
 
@@ -80,14 +81,16 @@ public class playerLogic : MonoBehaviour {
 
         }
 
-        if (currentBatteryLife <= 0 && light.enabled)
+        if (currentBatteryLife <= 0 && flashLightOn)
         {
-            numBatteries -= 1;
-            if (numBatteries <= 0)
-            {
-                light.enabled = false;
-            }
+            light.range = 0;
+            flashLightOn = false;
         }
+        if(flashLightOn)
+        {
+            StartCoroutine(decreaseBattery());
+        }
+
         if (playerHealth > PLAYERMAXHEALTH){
 			playerHealth = PLAYERMAXHEALTH;
 		}else if(playerHealth < 0){
@@ -104,24 +107,39 @@ public class playerLogic : MonoBehaviour {
 			playerDeath();
 		}
 	}
-    
+
+    public void toggleFlashlight()
+    {
+        print(flashLightOn);
+        if (flashLightOn)
+        {
+            light.range = 0;
+        }
+        else
+        {
+           light.range = 50;
+        }
+        flashLightOn = !flashLightOn;
+    }
     public void reloadBattery()
     {
-        light.enabled = false;
-        if(numBatteries == 0)
-        { 
+        if (numBatteries == 0)
+        {
             return;
         }
-        numBatteries -= 1;
-        currentBatteryLife = defaultBatteryLife;
         StartCoroutine(insertBattery());
+
     }
 
     public IEnumerator insertBattery()
     {
+
         yield return new WaitForSeconds(reloadTime);
+        light.range = 0;
+        flashLightOn = false;
+        numBatteries -= 1;
+        currentBatteryLife = defaultBatteryLife;
         light.intensity = brightLightIntensity;
-        light.enabled = true;
     }
     public IEnumerator decreaseBattery()
     {

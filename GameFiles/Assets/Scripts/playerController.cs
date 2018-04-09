@@ -153,12 +153,8 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 			
 			if (Input.GetButtonDown("Flashlight")){
-				if(m_flashlightOn){
-                    m_flashlightOn = false;
-				}else{
-					m_flashlightOn = true;
-				}
-			}
+                playerStats.toggleFlashlight();
+            }
 
             if (Input.GetButtonDown("Reload"))
             {
@@ -242,7 +238,6 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 			
 			if(m_flashlightOn){
-                StartCoroutine(playerStats.decreaseBattery());
                 playerLight.SetActive(true);
 			}else{
                 playerLight.SetActive(false);
