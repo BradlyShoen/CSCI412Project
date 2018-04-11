@@ -1458,12 +1458,16 @@ MonoBehaviour:
   deathPanel: {fileID: 1657554804787278}
   playerHealth: 100
   playerStamina: 100
+  playerBattery: 100
+  batteryDecreaseRate: 1
   staminaIncreaseRate: 50
   runningDecreaseRate: 5
   healthBarEmpty: {fileID: 2800000, guid: 67c29d2a9f772324dbcd1f953fdac674, type: 3}
   healthBarFull: {fileID: 2800000, guid: b1453725bfcf6a845b7d73ad9e558624, type: 3}
   staminaBarEmpty: {fileID: 2800000, guid: 210ae2d5cf79ac7448878e88c569bb1a, type: 3}
   staminaBarFull: {fileID: 2800000, guid: 7784e2d286284344e95ed6a73e91a52a, type: 3}
+  batteryBarEmpty: {fileID: 2800000, guid: 72545e1d0c958eb40bbbaf9dd8de607d, type: 3}
+  batteryBarFull: {fileID: 2800000, guid: c3e2163a15cb5b643bc71a6f90547b39, type: 3}
 --- !u!114 &114621047085727512
 MonoBehaviour:
   m_ObjectHideFlags: 1

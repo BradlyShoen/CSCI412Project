@@ -19,8 +19,4 @@ public class WhistlerLogic : MonoBehaviour {
 			whistleObject.GetComponent<AudioSource>().volume = 0;
 		}
 	}
-	
-	void Start(){
-		transform.position = new Vector3(Random.Range(-500f, 500f), transform.position.y, Random.Range(-500f, 500f));
-	}
 }
