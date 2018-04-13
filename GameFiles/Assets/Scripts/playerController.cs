@@ -18,6 +18,8 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			public KeyCode RunKey = KeyCode.LeftShift;
 			public float JumpForce = 45f;
 			
+			public GameObject walkingSoundObject;
+			
 			public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
 			[HideInInspector] public float CurrentTargetSpeed = 8f;
 			public playerLogic playerStats;
@@ -31,27 +33,40 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 				if (input.x > 0 || input.x < 0){
 					//strafe
 					CurrentTargetSpeed = StrafeSpeed;
+					if(!walkingSoundObject.GetComponent<AudioSource>().isPlaying){
+						walkingSoundObject.GetComponent<AudioSource>().Play();
+					}
 				}
 				if (input.y < 0){
 					//backwards
 					CurrentTargetSpeed = BackwardSpeed;
+					if(!walkingSoundObject.GetComponent<AudioSource>().isPlaying){
+						walkingSoundObject.GetComponent<AudioSource>().Play();
+					}
 				}
 				if (input.y > 0){
 					//forwards
 					//handled last as if strafing and moving forward at the same time forwards speed should take precedence
 					CurrentTargetSpeed = ForwardSpeed;
+					if(!walkingSoundObject.GetComponent<AudioSource>().isPlaying){
+						walkingSoundObject.GetComponent<AudioSource>().Play();
+					}
 				}
 				
 				if (Input.GetKey(RunKey) && playerStats.playerStamina > 0.0f && m_IsGrounded)
 				{
 					CurrentTargetSpeed *= RunMultiplier;
 					m_Running = true;
+					walkingSoundObject.GetComponent<AudioSource>().pitch = 2.0f;
+					
 				}else{
 					m_Running = false;
+					walkingSoundObject.GetComponent<AudioSource>().pitch = 1.0f;
 				}
 				
 				if (m_Crouching){
 					CurrentTargetSpeed *= CrouchMultiplier;
+					walkingSoundObject.GetComponent<AudioSource>().pitch = 0.8f;
 				}
 				
 			}
@@ -95,6 +110,10 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 		private bool m_PreviouslyCrouched, m_checkCrouch;
 		private bool m_flashlightOn = true;
 		
+		public GameObject jumpingSoundObject;
+		public GameObject landingSoundObject;
+		public GameObject flashlightSoundObject;
+		
 
 		//Returns the velocity Vector3 of our player
 		public Vector3 Velocity{
@@ -135,6 +154,9 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			{
 				m_Jump = true;
 				playerStats.playerStamina -= JumpStaminaCost;
+				if(!jumpingSoundObject.GetComponent<AudioSource>().isPlaying){
+					jumpingSoundObject.GetComponent<AudioSource>().Play();
+				}
 			}
 			
 			if(Input.GetButton("Crouch")){
@@ -159,6 +181,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 				}else{
 					m_flashlightOn = true;
 				}
+				flashlightSoundObject.GetComponent<AudioSource>().Play();
 			}
 			
 			if(playerStats.playerBattery <= 0.0f){
@@ -323,6 +346,9 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			}
 			if (!m_PreviouslyGrounded && m_IsGrounded && m_Jumping)
 			{
+				if(!landingSoundObject.GetComponent<AudioSource>().isPlaying){
+					landingSoundObject.GetComponent<AudioSource>().Play();
+				}
 				m_Jumping = false;
 			}
 		}
