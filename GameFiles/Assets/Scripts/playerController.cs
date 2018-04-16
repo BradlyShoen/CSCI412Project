@@ -58,10 +58,12 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 					CurrentTargetSpeed *= RunMultiplier;
 					m_Running = true;
 					walkingSoundObject.GetComponent<AudioSource>().pitch = 2.0f;
+					walkingSoundObject.GetComponent<AudioSource>().volume = 0.5f;
 					
 				}else{
 					m_Running = false;
 					walkingSoundObject.GetComponent<AudioSource>().pitch = 1.0f;
+					walkingSoundObject.GetComponent<AudioSource>().volume = 0.25f;
 				}
 				
 				if (m_Crouching){
