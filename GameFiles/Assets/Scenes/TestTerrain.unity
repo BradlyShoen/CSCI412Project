@@ -691,6 +691,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114015546801900338, guid: 177de02cdf7d44247b474cf656247607,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 132127590}
     - target: {fileID: 114470687453511270, guid: 177de02cdf7d44247b474cf656247607,
         type: 2}
       propertyPath: whistleObject
@@ -701,11 +706,6 @@ Prefab:
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 81961849}
-    - target: {fileID: 114015546801900338, guid: 177de02cdf7d44247b474cf656247607,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 132127590}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 177de02cdf7d44247b474cf656247607, type: 2}
   m_IsPrefabParent: 0
