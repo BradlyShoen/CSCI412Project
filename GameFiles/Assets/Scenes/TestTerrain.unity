@@ -160,12 +160,12 @@ Prefab:
     - target: {fileID: 108865677558944098, guid: d8d5b9615839958488f02cfa4dc5b3b0,
         type: 2}
       propertyPath: m_Intensity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 108865677558944098, guid: d8d5b9615839958488f02cfa4dc5b3b0,
         type: 2}
       propertyPath: m_BounceIntensity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4094400734711866, guid: d8d5b9615839958488f02cfa4dc5b3b0, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -190,6 +190,11 @@ Prefab:
     - target: {fileID: 4094400734711866, guid: d8d5b9615839958488f02cfa4dc5b3b0, type: 2}
       propertyPath: m_LocalScale.z
       value: 1.4820201
+      objectReference: {fileID: 0}
+    - target: {fileID: 108865677558944098, guid: d8d5b9615839958488f02cfa4dc5b3b0,
+        type: 2}
+      propertyPath: m_Shadows.m_Type
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8d5b9615839958488f02cfa4dc5b3b0, type: 2}
@@ -691,11 +696,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114015546801900338, guid: 177de02cdf7d44247b474cf656247607,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 132127590}
     - target: {fileID: 114470687453511270, guid: 177de02cdf7d44247b474cf656247607,
         type: 2}
       propertyPath: whistleObject
@@ -706,6 +706,11 @@ Prefab:
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 81961849}
+    - target: {fileID: 114015546801900338, guid: 177de02cdf7d44247b474cf656247607,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 132127590}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 177de02cdf7d44247b474cf656247607, type: 2}
   m_IsPrefabParent: 0
@@ -1238,6 +1243,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114600367650542616, guid: 50f7688f416616145a3b3fcff3cf5a31,
+        type: 2}
+      propertyPath: whistlerObject
+      value: 
+      objectReference: {fileID: 166775165}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 50f7688f416616145a3b3fcff3cf5a31, type: 2}
   m_IsPrefabParent: 0

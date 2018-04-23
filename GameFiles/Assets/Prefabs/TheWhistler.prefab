@@ -1308,7 +1308,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.75, z: 0.5}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1, z: 0.25}
 --- !u!95 &95759748230649082
 Animator:
   serializedVersion: 3
@@ -1360,9 +1360,9 @@ MonoBehaviour:
   triggerDamage: {fileID: 114734928045172678}
   whistlerCollider: {fileID: 65761662470705954}
   fov: 90
-  aggro_speed: 5
-  wander_speed: 5
-  search_speed: 5
+  aggro_speed: 4
+  wander_speed: 4
+  search_speed: 4
   rotate_speed: 0.001
   damage_range: 1
   attackAnimThreshold: 1.5

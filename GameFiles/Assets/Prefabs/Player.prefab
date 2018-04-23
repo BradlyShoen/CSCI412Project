@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5427998}
   - component: {fileID: 11403432}
   - component: {fileID: 114600367650542616}
-  - component: {fileID: 65002200421201218}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -153,7 +152,7 @@ MonoBehaviour:
     CrouchMultiplier: 0.35
     RunMultiplier: 2
     RunKey: 304
-    JumpForce: 60
+    JumpForce: 40
     walkingSoundObject: {fileID: 1719045378995718}
     SlopeCurveModifier:
       serializedVersion: 2
@@ -199,7 +198,7 @@ MonoBehaviour:
     airControl: 0
     shellOffset: 0.1
   slopeLimit: 50
-  JumpStaminaCost: 50
+  JumpStaminaCost: 10
   playerLight: {fileID: 1820722902484782}
   jumpingSoundObject: {fileID: 1625662438287004}
   landingSoundObject: {fileID: 1737624363195304}
@@ -819,18 +818,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1256849236110932}
   m_Mesh: {fileID: 4300000, guid: 66e7ba5bc19436b48a731f384f3b1571, type: 3}
---- !u!65 &65002200421201218
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177462}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82032452363105432
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1900,6 +1887,9 @@ MonoBehaviour:
   mainCanvas: {fileID: 1118145749515940}
   pausePanel: {fileID: 1847111180272900}
   deathPanel: {fileID: 1657554804787278}
+  deathPlayerObject: {fileID: 1156956592902594, guid: d5830775871a9ed40afe5ad6c1a09369,
+    type: 2}
+  whistlerObject: {fileID: 0}
   playerHealth: 100
   playerStamina: 100
   playerBattery: 100

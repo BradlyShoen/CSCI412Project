@@ -11,6 +11,8 @@ public class playerLogic : MonoBehaviour {
 	public GameObject mainCanvas;
 	public GameObject pausePanel;
 	public GameObject deathPanel;
+	public GameObject deathPlayerObject;
+	public GameObject whistlerObject;
 	
 	private GameObject playerObject;
 	private playerController playerMover;
@@ -136,11 +138,11 @@ public class playerLogic : MonoBehaviour {
 	}
 	
 	public void playerDeath(){
-		gameObject.GetComponent<playerController>().enabled = false;
-		deathPanel.SetActive(true);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.Confined;
-		Time.timeScale = 0.0f;
+		Instantiate(deathPlayerObject, transform.position, transform.rotation);
+		Destroy(whistlerObject);
+		Destroy(gameObject);
 	}
 	
 	public void OnGUI(){
