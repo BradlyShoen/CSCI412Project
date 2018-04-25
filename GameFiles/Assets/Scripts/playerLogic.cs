@@ -46,7 +46,7 @@ public class playerLogic : MonoBehaviour {
 	public Texture2D batteryBarFull;
 
     public Text ItemsCollectedText;
-    private int ItemsCollectedCount;
+    public int ItemsCollectedCount;
 
 
     void Start () {
@@ -190,7 +190,7 @@ public class playerLogic : MonoBehaviour {
 		GUI.EndGroup ();
 	}
 
-    void SetCountText()
+    public void SetCountText()
     {
         ItemsCollectedText.text = "# of Items Collected: " + ItemsCollectedCount.ToString();
     }
