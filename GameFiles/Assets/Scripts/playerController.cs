@@ -1,4 +1,4 @@
-//This script is originally created by Unity but heavly modified to fit our player's controls
+//This script is originally created by Unity but heavily modified to fit our player's controls
 
 using System;
 using System.Collections;
@@ -26,9 +26,10 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 
 			private bool m_Running;
 			[HideInInspector] public bool m_Crouching, m_IsGrounded;
-			
-			//This function updates the speed of the player based on whether or not hes crouching, running, strafing, etc
-			public void UpdateDesiredTargetSpeed(Vector2 input){
+
+
+            //This function updates the speed of the player based on whether or not hes crouching, running, strafing, etc
+            public void UpdateDesiredTargetSpeed(Vector2 input){
 				if (input == Vector2.zero) return;
 				if (input.x > 0 || input.x < 0){
 					//strafe
@@ -145,7 +146,7 @@ namespace UnityStandardAssets.Characters.FirstPerson{
 			m_Capsule = GetComponent<CapsuleCollider>();
 			mouseLook.Init (transform, cam.transform);
 			playerStats = GetComponent<playerLogic>();
-		}
+        }
 
 		//Gets mouse input, checks if we are jumping, and also checks if we are crouching
 		private void Update()

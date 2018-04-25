@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.UI;
 
 public class playerLogic : MonoBehaviour {
 	
@@ -43,16 +44,22 @@ public class playerLogic : MonoBehaviour {
 	Vector2 batteryBarSize = new Vector2(70,20);
 	public Texture2D batteryBarEmpty;
 	public Texture2D batteryBarFull;
-	
 
-	void Start () {
+    public Text ItemsCollectedText;
+    private int ItemsCollectedCount;
+
+
+    void Start () {
 		playerObject = GameObject.FindWithTag("Player");
 		playerMover = playerObject.GetComponent<playerController>();
 		mainCanvas = GameObject.Find("MainCanvas");
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
-	}
+
+        ItemsCollectedCount = 0;
+        SetCountText();
+    }
 	
 	void Update () {
 		if(Input.GetKeyDown("`")){
@@ -182,4 +189,9 @@ public class playerLogic : MonoBehaviour {
 
 		GUI.EndGroup ();
 	}
+
+    void SetCountText()
+    {
+        ItemsCollectedText.text = "Count: " + ItemsCollectedCount.ToString();
+    }
 }
