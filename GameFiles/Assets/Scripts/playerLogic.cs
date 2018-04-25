@@ -192,6 +192,6 @@ public class playerLogic : MonoBehaviour {
 
     void SetCountText()
     {
-        ItemsCollectedText.text = "Count: " + ItemsCollectedCount.ToString();
+        ItemsCollectedText.text = "# of Items Collected: " + ItemsCollectedCount.ToString();
     }
 }

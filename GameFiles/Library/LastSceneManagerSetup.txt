@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/TestTerrain.unity
+- path: Assets/Scenes/EndingScene.unity
   isLoaded: 1
   isActive: 1
