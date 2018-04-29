@@ -50,17 +50,19 @@ public class WhistlerMovement : MonoBehaviour
             wander();
         }
         triggerDamage.OnTriggerStay(whistlerCollider);
-		if(Vector3.Distance(whistler.position, player.position) <= (damage_range + attackAnimThreshold)){
+		if(Vector3.Distance(whistler.position, player.position) <= (damage_range+attackAnimThreshold)){
 			gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
 		}else{
 			gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
 		}
 		
-        if(Vector3.Distance(whistler.position, player.position) <= damage_range)
-        {
-            print("attacking player");
-            StartCoroutine(triggerDamage.applyPlayerDamage(player.gameObject));
-        }
+		if (Vector3.Distance (whistler.position, player.position) <= damage_range) {
+			print ("attacking player");
+			StartCoroutine (triggerDamage.applyPlayerDamage (player.gameObject));
+
+		} else {
+
+		}
     }
 
     bool LineOfSight(Transform transform, Transform target)
