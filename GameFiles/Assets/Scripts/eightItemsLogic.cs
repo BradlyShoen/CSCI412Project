@@ -10,6 +10,9 @@ public class eightItemsLogic : MonoBehaviour {
         {
             col.gameObject.GetComponent<playerLogic>().ItemsCollectedCount += 1;
             col.gameObject.GetComponent<playerLogic>().SetCountText();
+			if (!GameObject.Find ("ItemFound").GetComponent<AudioSource> ().isPlaying) { 
+				GameObject.Find ("ItemFound").GetComponent<AudioSource> ().Play ();
+			}
             Destroy(gameObject);
         }
     }

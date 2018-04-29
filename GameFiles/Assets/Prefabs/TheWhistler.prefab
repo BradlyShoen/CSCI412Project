@@ -1130,8 +1130,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1636617729881080}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.32, z: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -64.84906, y: -3.7023635, z: 107.63908}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4654997774558558}
@@ -1360,11 +1360,11 @@ MonoBehaviour:
   triggerDamage: {fileID: 114734928045172678}
   whistlerCollider: {fileID: 65761662470705954}
   fov: 90
-  aggro_speed: 4
-  wander_speed: 4
-  search_speed: 4
+  aggro_speed: 5
+  wander_speed: 5
+  search_speed: 5
   rotate_speed: 0.001
-  damage_range: 1
+  damage_range: 1.5
   attackAnimThreshold: 1.5
 --- !u!114 &114470687453511270
 MonoBehaviour:
