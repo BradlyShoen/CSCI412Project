@@ -1,2 +1,2 @@
-# CSCI412Project
+# The-Whistler
 Game Project for CSCI412
